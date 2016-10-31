@@ -54,3 +54,52 @@ console.log('RxJS Boiler Running...');
         () => console.info("Array of Objects Observable Done!")
     );
 /////////////////////////////
+
+/** Observables from Scratch */
+
+    /** Observable with Completed */
+    const output_5 = document.getElementById("output_5");
+    const source_1$ = new Rx.Observable(observer =>  {
+        output_5.insertAdjacentHTML('beforeend', `<p>Creating Observable...</p>`);
+
+        setTimeout(() => observer.next("Hello World"), 3000);
+
+        setTimeout(() => observer.next("Another Hello"), 6000);
+
+        setTimeout(() => {
+            observer.next("Yet, another value");
+            observer.complete();
+        }, 9000);
+
+    });
+    source_1$.subscribe(
+        x => output_5.insertAdjacentHTML('beforeend', `<p>${x}</p>`),
+        err => console.error(err),
+        complete => output_5.insertAdjacentHTML('beforeend', `<p>Completed</p>`)
+    );
+
+    /** Observable with Error */
+    const output_6 = document.getElementById("output_6");
+    const source_2$ = new Rx.Observable(observer =>  {
+        output_6.insertAdjacentHTML('beforeend', `<p>Creating Observable...</p>`);
+
+        setTimeout(() => observer.next("Hello World"), 3000);
+
+        setTimeout(() => {
+            observer.next("Another Hello");
+            observer.error(new Error('Error in Observer'));
+        }, 6000);
+
+        setTimeout(() => {
+            observer.next("Yet, another value");
+            observer.complete();
+        }, 9000);
+
+    });
+    source_2$.subscribe(
+        x => output_6.insertAdjacentHTML('beforeend', `<p>${x}</p>`),
+        err => output_6.insertAdjacentHTML('beforeend', `<p><b>${err}</b></p>`),
+        complete => output_6.insertAdjacentHTML('beforeend', `<p>Completed</p>`)
+    );
+
+//////////////////////////////
