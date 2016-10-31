@@ -8,7 +8,7 @@ console.log('RxJS Boiler Running...');
     /** Click Event */
     const btn_1 = document.getElementById("btn_1");
     const btn_1Stream$ = Rx.Observable.fromEvent(btn_1, "click");
-
+    
     btn_1Stream$.subscribe(e => console.log("Click Event from btn_1!"));
 
     /** Key Up Event */
